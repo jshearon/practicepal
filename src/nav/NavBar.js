@@ -1,10 +1,21 @@
-import React from "react"
+import React, { useEffect, useContext } from "react"
+import { AuthContext } from '../auth/AuthProvider'
 import { Link } from "react-router-dom"
 import "./NavBar.css"
 
 export const NavBar = (props) => {
+
+    const { profile, getProfile } = useContext(AuthContext)
+
+    useEffect(() => {
+        localStorage.getItem("pp_token") && getProfile()
+    }, [])
+
+
     return (
         <ul className="navbar">
+            <li>{profile && profile.user.first_name}</li>
+            <li><img src={profile && profile.profile_image} alt="Profile Pic" /></li>
             <li className="nav-item">
                         <button className="nav-link fakeLink"
                             onClick={() => {
