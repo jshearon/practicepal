@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import { TextField, Button, Typography, Avatar, Grid } from '@material-ui/core'
+import { TextField, Button, Typography, Avatar, Grid, IconButton } from '@material-ui/core'
+import CancelIcon from '@material-ui/icons/Cancel';
 import { makeStyles } from '@material-ui/core/styles';
 import "./Auth.scss"
 
@@ -52,10 +53,11 @@ export const Register = (props) => {
   }
 
   const handleImg = (e) => {
-    e.target.files &&
-    e.target.files[0].length > 0 &&
-      setFormImg(e.target.files[0])
-      setPreviewImg(URL.createObjectURL(e.target.files[0]))
+    if (e.target.files && e.target.files[0]) {
+      let img = e.target.files[0];
+      setFormImg(img)
+      setPreviewImg(URL.createObjectURL(img))
+    }
   }
 
   const handleRegister = (e) => {
@@ -86,12 +88,17 @@ export const Register = (props) => {
       <Grid 
         container 
         className={classes.root} 
-        spacing={5}
+        spacing={2}
         justify="center"
         alignItems="center"
       >
 
-          <Grid item xs={12}>
+          <Grid item xs={12} align="right">
+            <IconButton aria-label="delete" className={classes.margin} size="small" onClick={() => props.handleRegisterClick()}>
+              <CancelIcon />
+            </IconButton>
+          </Grid>
+          <Grid item xs={12} align="center">
             <Typography>Register an account</Typography>
           </Grid>
           <Grid item xs={12}>
@@ -120,7 +127,9 @@ export const Register = (props) => {
           <Grid item xs={12} align="center">
             <input hidden id="contained-button-file" type="file" name="profileImage" onChange={handleImg} />
             <label htmlFor="contained-button-file">
-              <Avatar id="target" src={previewImg} alt={formData.firstName} className={classes.large} component="span" />
+            <IconButton color="primary" aria-label="upload picture" component="span">
+              <Avatar id="target" src={previewImg} alt={formData.firstName} className={classes.large} />
+              </IconButton>
             </label>
           </Grid>
           <Grid item  xs={12} align="center">

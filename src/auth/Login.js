@@ -1,6 +1,8 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
-import { TextField, Button, Typography, Grid } from '@material-ui/core'
+import { Link, Redirect } from "react-router-dom"
+import { useHistory } from "react-router-dom";
+import { TextField, Button, Typography, Grid, IconButton } from '@material-ui/core'
+import CancelIcon from '@material-ui/icons/Cancel';
 import { makeStyles } from '@material-ui/core/styles';
 import "./Auth.scss"
 
@@ -23,11 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 export const Login = (props) => {
 
+    let history = useHistory();
+
     const classes = useStyles();
 
     const [username, setUserName] = useState();
     const [pw, setPw] = useState();
     const [validatedPassword, setValidatedPassword] = useState(true);
+
 
     const handleChange =(e) => {
         e.preventDefault()
@@ -55,7 +60,7 @@ export const Login = (props) => {
             .then(res => {
                 if ('valid' in res && res.valid && 'token' in res) {
                     localStorage.setItem( 'pp_token', res.token )
-                    props.history.push('/')
+                    history.push('/')
                 }
                 else {
                     setValidatedPassword(false)
@@ -71,7 +76,14 @@ export const Login = (props) => {
         justify="center"
         alignItems="center"
         >
-            <Typography>Please sign in</Typography>
+            <Grid item xs={12} align="right">
+                <IconButton aria-label="delete" className={classes.margin} size="small" onClick={() => props.handleLoginClick()}>
+                <CancelIcon />
+                </IconButton>
+            </Grid>
+            <Grid item xs={12}>
+                <Typography>Please sign in</Typography>
+            </Grid>
             <Grid item xs={12}>
                 <TextField name="username" label="Username" onChange={handleChange} required fullWidth  />
             </Grid>

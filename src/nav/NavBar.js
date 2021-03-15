@@ -1,49 +1,59 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import "./NavBar.css"
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
 
-export const NavBar = (props) => {
-    return (
-        <ul className="navbar">
-            <li className="nav-item">
-                        <button className="nav-link fakeLink"
-                            onClick={() => {
-                                props.history.push({ pathname: "/" })
-                            }}
-                        >Games</button>
-                    </li>
-                    <li className="nav-item">
-                        <button className="nav-link fakeLink"
-                            onClick={() => {
-                                props.history.push({ pathname: "/events" })
-                            }}
-                        >Events</button>
-                    </li>
-                    <li className="nav-item">
-                        <button className="nav-link fakeLink"
-                            onClick={() => {
-                                props.history.push({ pathname: "/profile" })
-                            }}
-                        >Profile</button>
-                    </li>
-            {
-                (localStorage.getItem("pp_token") !== null) ?
-                    <li className="nav-item">
-                        <button className="nav-link fakeLink"
-                            onClick={() => {
-                                localStorage.removeItem("pp_token")
-                                props.history.push({ pathname: "/" })
-                            }}
-                        >Logout</button>
-                    </li> :
-                    <>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register">Register</Link>
-                        </li>
-                    </>
-            }        </ul>
-    )
+const useStyles = makeStyles({
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+});
+
+export const NavBar = () => {
+  const classes = useStyles();
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
+  const toggleDrawer = (e) => {
+    if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
+      return;
+    }
+
+    setMenuOpen(!menuOpen);
+  };
+
+  return (
+        <React.Fragment>
+          <Button onClick={toggleDrawer}><MenuIcon /></Button>
+          <Drawer open={menuOpen} onClose={toggleDrawer}>
+            <List>
+                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                <ListItem button key={text}>
+                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemText primary={text} />
+                </ListItem>
+                ))}
+                </List>
+            <Divider />
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                <ListItem button key={text}>
+                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemText primary={text} />
+                </ListItem>
+                ))}
+            </List>
+          </Drawer>
+        </React.Fragment>
+  );
 }
