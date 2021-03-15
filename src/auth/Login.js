@@ -1,12 +1,41 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './Auth.scss'
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import { TextField, Button, Typography, Grid } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
+import "./Auth.scss"
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    large: {
+      width: theme.spacing(12),
+      height: theme.spacing(12),
+    },
+  }));
 
 export const Login = (props) => {
-    const email = React.createRef()
-    const password = React.createRef()
-    const invalidDialog = React.createRef()
+
+    const classes = useStyles();
+
+    const [username, setUserName] = useState();
+    const [pw, setPw] = useState();
+    const [validatedPassword, setValidatedPassword] = useState(true);
+
+    const handleChange =(e) => {
+        e.preventDefault()
+
+        e.target.name === "username"
+            ? setUserName(e.target.value)
+            : setPw(e.target.value)
+    }
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -18,8 +47,8 @@ export const Login = (props) => {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                username: email.current.value,
-                password: password.current.value
+                username: username,
+                password: pw
             })
         })
             .then(res => res.json())
@@ -29,39 +58,36 @@ export const Login = (props) => {
                     props.history.push('/')
                 }
                 else {
-                    invalidDialog.current.showModal()
+                    setValidatedPassword(false)
                 }
             })
     }
 
     return (
-        <main className='container--login'>
-            <dialog className='dialog dialog--auth' ref={invalidDialog}>
-                <div>Email or password was not valid.</div>
-                <button className='button--close' onClick={e => invalidDialog.current.close()}>Close</button>
-            </dialog>
-            <section>
-                <form className='form--login' onSubmit={handleLogin}>
-                    <h1>Practice Pal</h1>
-                    <h2>Please sign in</h2>
-                    <fieldset>
-                        <label htmlFor='inputEmail'> Email address </label>
-                        <input ref={email} type='email' id='email' className='form-control'  placeholder='Email address' required autoFocus />
-                    </fieldset>
-                    <fieldset>
-                        <label htmlFor='inputPassword'> Password </label>
-                        <input ref={password} type='password' id='password' className='form-control'  placeholder='Password' required />
-                    </fieldset>
-                    <fieldset style={{
-                        textAlign:'center'
-                    }}>
-                        <button className='btn btn-1 btn-sep icon-send' type='submit'>Sign In</button>
-                    </fieldset>
-                </form>
-            </section>
-            <section className='link--register'>
+        <Grid 
+        container 
+        className={classes.root} 
+        spacing={0}
+        justify="center"
+        alignItems="center"
+        >
+            <Typography>Please sign in</Typography>
+            <Grid item xs={12}>
+                <TextField name="username" label="Username" onChange={handleChange} required fullWidth  />
+            </Grid>
+            <Grid item xs={12}>
+                {
+                    validatedPassword
+                    ? <TextField name="password" label="Password" onChange={handleChange} required type="password" fullWidth  />
+                    : <TextField name="password" label="Password" onChange={handleChange} required type="password" fullWidth error />
+                }
+            </Grid>
+            <Grid item  xs={12} align="center">
+                <Button variant="contained" onClick={handleLogin}>Log In</Button>
+            </Grid>
+            <Grid item  xs={12} align="center">
                 <Link to='/register'>Not a member yet?</Link>
-            </section>
-        </main>
+            </Grid>
+        </Grid>
     )
 }

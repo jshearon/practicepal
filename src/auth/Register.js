@@ -1,10 +1,29 @@
-import React, { useState, createRef } from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import { TextField, Button, Typography, Avatar, Grid } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 import "./Auth.scss"
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(12),
+    height: theme.spacing(12),
+  },
+}));
 
 export const Register = (props) => {
 
-  const passwordDialog = createRef()
+  const classes = useStyles();
 
   const initialFormData = Object.freeze({
     firstName: "",
@@ -12,12 +31,12 @@ export const Register = (props) => {
     email: "",
     password: "",
     verifyPassword: "",
-    profileImage: "",
   });
 
   const [formData, setFormData] = useState(initialFormData);
   const [formImg, setFormImg] = useState();
   const [previewImg, setPreviewImg] = useState();
+  const [validatedPassword, setValidatedPassword] = useState(true)
 
   const handleChange = (e) => {
     setFormData({
@@ -26,9 +45,17 @@ export const Register = (props) => {
     });
   };
 
+  const verifyPassword = (e) => {
+    formData.password === formData.verifyPassword 
+      ? setValidatedPassword(true) 
+      : setValidatedPassword(false) 
+  }
+
   const handleImg = (e) => {
-    setFormImg(e.target.files[0])
-    setPreviewImg(URL.createObjectURL(e.target.files[0]))
+    e.target.files &&
+    e.target.files[0].length > 0 &&
+      setFormImg(e.target.files[0])
+      setPreviewImg(URL.createObjectURL(e.target.files[0]))
   }
 
   const handleRegister = (e) => {
@@ -56,49 +83,55 @@ export const Register = (props) => {
   }
 
     return (
-        <main style={{ textAlign: "center" }}>
+      <Grid 
+        container 
+        className={classes.root} 
+        spacing={5}
+        justify="center"
+        alignItems="center"
+      >
 
-            <dialog className="dialog dialog--password" ref={passwordDialog}>
-                <div>Passwords do not match</div>
-                <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
-            </dialog>
+          <Grid item xs={12}>
+            <Typography>Register an account</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField name="firstName" label="First Name" onChange={handleChange} required fullWidth />
+          </Grid>
+          <Grid item  xs={12}>
+            <TextField name="lastName" label="Last Name" onChange={handleChange} required fullWidth  />
+          </Grid>
+          <Grid item  xs={12}>
+            <TextField name="email" label="Email" onChange={handleChange} required type="email" fullWidth />
+          </Grid>
+          <Grid item  xs={12}>
+            {
+              validatedPassword
+                ? <TextField name="password" label="Password" onChange={handleChange} required type="password" fullWidth  />
+                : <TextField error name="password" label="Password" onChange={handleChange} required type="password" fullWidth  />
+             }
+          </Grid>
+          <Grid item  xs={12}>
+            {
+              validatedPassword
+                ? <TextField name="verifyPassword" label="Verify Password" onChange={handleChange} onBlur={verifyPassword} required type="password" fullWidth  />
+                :<TextField error name="verifyPassword" label="Verify Password" onChange={handleChange} onBlur={verifyPassword} required type="password" fullWidth  />
+            }
+          </Grid>
+          <Grid item xs={12} align="center">
+            <input hidden id="contained-button-file" type="file" name="profileImage" onChange={handleImg} />
+            <label htmlFor="contained-button-file">
+              <Avatar id="target" src={previewImg} alt={formData.firstName} className={classes.large} component="span" />
+            </label>
+          </Grid>
+          <Grid item  xs={12} align="center">
+            <Button type="submit" variant="contained" onClick={handleRegister}>Register</Button>
+          </Grid>
 
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
-                <fieldset>
-                    <label htmlFor="firstName"> First Name </label>
-                    <input onChange={handleChange} type="text" name="firstName" className="form-control" placeholder="First name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="lastName"> Last Name </label>
-                    <input onChange={handleChange} type="text" name="lastName" className="form-control" placeholder="Last name" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="inputEmail"> Email address </label>
-                    <input onChange={handleChange} type="email" name="email" className="form-control" placeholder="Email address" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="inputPassword"> Password </label>
-                    <input onChange={handleChange} type="password" name="password" className="form-control" placeholder="Password" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="verifyPassword"> Verify Password </label>
-                    <input onChange={handleChange} type="password" name="verifyPassword" className="form-control" placeholder="Verify password" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="profileImage"> Profile Image </label>
-                    <input type="file" id="profileImage" name="profileImage" onChange={handleImg} />
-                </fieldset>
-                <fieldset style={{
-                    textAlign: "center"
-                }}>
-                    <button className="btn btn-1 btn-sep icon-send" type="submit">Register</button>
-                </fieldset>
-            </form>
-            <img id="target" src={previewImg} alt="target for profile pic" />
-            <section className="link--register">
-                Already registered? <Link to="/login">Login</Link>
-            </section>
-        </main>
+        <Grid item  xs={12} align="center">
+          <section className="link--register">
+            Already registered? <Link to="/login">Login</Link>
+          </section>
+        </Grid>
+      </Grid>
     )
 }
