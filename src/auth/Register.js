@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { TextField, Button, Typography, Avatar, Grid, IconButton } from '@material-ui/core'
+import CancelIcon from '@material-ui/icons/Cancel';
 import { makeStyles } from '@material-ui/core/styles';
 import "./Auth.scss"
 
@@ -87,12 +88,17 @@ export const Register = (props) => {
       <Grid 
         container 
         className={classes.root} 
-        spacing={5}
+        spacing={2}
         justify="center"
         alignItems="center"
       >
 
-          <Grid item xs={12}>
+          <Grid item xs={12} align="right">
+            <IconButton aria-label="delete" className={classes.margin} size="small" onClick={() => props.handleRegisterClick()}>
+              <CancelIcon />
+            </IconButton>
+          </Grid>
+          <Grid item xs={12} align="center">
             <Typography>Register an account</Typography>
           </Grid>
           <Grid item xs={12}>
