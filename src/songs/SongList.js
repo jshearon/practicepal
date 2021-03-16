@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import { Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import { SectionContext } from '../sections/SectionProvider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,9 +22,16 @@ const useStyles = makeStyles((theme) => ({
 
 export const SongList = (props) => {
 
+  const { userSections, getUserSections } = useContext(SectionContext)
+
   const classes = useStyles();
 
-  return (
+  useEffect(() => {
+    getUserSections()
+  }, [])
+  
+
+  return ( 
       <Grid 
           container 
           className={classes.root} 
@@ -33,8 +41,9 @@ export const SongList = (props) => {
           direction="column"
         >
 
+
           <Grid item xs={12} align="center">
-            <Typography variant="h1">Song List</Typography>
+            <Typography variant="h3">Songs</Typography>
           </Grid>
       </Grid>
   )

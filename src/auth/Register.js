@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom"
 import { TextField, Button, Typography, Avatar, Grid, IconButton } from '@material-ui/core'
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -23,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Register = (props) => {
+
+  let history = useHistory();
 
   const classes = useStyles();
 
@@ -79,7 +82,7 @@ export const Register = (props) => {
               .then(res => {
                   if ("token" in res) {
                       localStorage.setItem("pp_token", res.token)
-                      props.history.push("/")
+                      history.push("/")
                   }
               })
   }
