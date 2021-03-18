@@ -7,9 +7,13 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+import QueueMusicIcon from '@material-ui/icons/QueueMusic';
+import SportsIcon from '@material-ui/icons/Sports';
 import { Avatar, Typography, AppBar, Toolbar, IconButton } from '@material-ui/core'
 import { AuthContext } from '../Auth/AuthProvider'
 
@@ -64,7 +68,7 @@ export const NavBar = (props) => {
                         <MenuIcon />
                       </IconButton>
                       <Typography variant="h6" className={classes.title}>
-                        Pocket Pal
+                        Practice Pal
                       </Typography>
                       <Avatar id="target" src={profile.profile_image} alt={profile.user.username} className={classes.large} />
                     </Toolbar>
@@ -73,13 +77,44 @@ export const NavBar = (props) => {
             }
           <Drawer open={menuOpen} onClose={toggleDrawer}>
             <List>
-                <ListItem button>
-                    <ListItemIcon><MailIcon /></ListItemIcon>
-                    <ListItemText>Profile</ListItemText>
+                <ListItem button onClick={() => {
+                  history.push('/')
+                  setMenuOpen(false)
+                }}>
+                    <ListItemIcon><HomeIcon /></ListItemIcon>
+                    <ListItemText>Home</ListItemText>
+                </ListItem>
+                <ListItem button onClick={() => {
+                  history.push('/')
+                  setMenuOpen(false)
+                }}>
+                    <ListItemIcon><LibraryMusicIcon /></ListItemIcon>
+                    <ListItemText>Works</ListItemText>
+                </ListItem>
+                <ListItem button onClick={() => {
+                  history.push('/')
+                  setMenuOpen(false)
+                }}>
+                    <ListItemIcon><QueueMusicIcon /></ListItemIcon>
+                    <ListItemText>Sections</ListItemText>
+                </ListItem>
+                <ListItem button onClick={() => {
+                  history.push('/')
+                  setMenuOpen(false)
+                }}>
+                    <ListItemIcon><SportsIcon /></ListItemIcon>
+                    <ListItemText>Competitions</ListItemText>
                 </ListItem>
             </List>
             <Divider />
             <List>
+                <ListItem button onClick={() => {
+                                        localStorage.removeItem("pp_token")
+                                        history.push('/')
+                                    }}>
+                    <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                    <ListItemText>Edit Profile</ListItemText>
+                </ListItem>
                 <ListItem button onClick={() => {
                                         localStorage.removeItem("pp_token")
                                         history.push('/')

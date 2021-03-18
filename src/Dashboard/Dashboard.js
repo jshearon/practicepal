@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Typography, Grid, CircularProgress, Card, CardContent, CardHeader, Button, Box } from '@material-ui/core'
+import { Typography, Grid, CircularProgress, Card, CardContent, CardHeader, Button, Box, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { SectionContext } from '../Sections/SectionProvider'
 import { Document, Page, pdfjs } from 'react-pdf';
@@ -88,13 +88,21 @@ export const Dashboard = (props) => {
               userSections.map(section => {
                 return (
               <Grid item xs={11} sm={8}>
-                <Card key={section.id} raised="true">
+                <Card key={section.id} raised>
                   <CardContent>
-                  <CardHeader
-                    title={section.song.title}
-                    subheader={section.label}
-                  />
-                    <Grid container spacing={3} justify="flex-start" alignContent="flex-start"> 
+                  <Paper elevation={3}>
+                    <Grid container spacing={0} justify="center">
+                      <Grid item xs={6} align="left" className="d-flex flex-column justify-content-center">
+                        <Typography variant="h5">
+                          <strong>{section.song.title}</strong>
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6} align="right" className="d-flex flex-column justify-content-center">
+                        <Typography variant="h5">{section.label}</Typography>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                    <Grid container spacing={0} justify="flex-start" alignContent="flex-start"> 
                         <Grid item xs={1} align="center" style = {{minWidth: "120px"}}>
                             <Document file={section.song.pdf} >
                               <Page pageNumber={1} height={150} />
