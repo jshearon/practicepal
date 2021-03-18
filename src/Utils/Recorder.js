@@ -31,6 +31,13 @@ class Recorder extends Component {
       blobURL: url
     })
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    let doNothing = null
+    if (prevProps.trigger !== this.props.trigger) {
+      this.props.trigger === 1 ? this.start() : this.props.trigger === 2 ? this.stop() : doNothing = null
+    }
+  }
  
   render() {
     const { recordState } = this.state
@@ -47,8 +54,6 @@ class Recorder extends Component {
           canvasWidth='200'
           canvasHeight='100' />
  
-        <button onClick={this.start}>Start</button>
-        <button onClick={this.stop}>Stop</button>
         <audio controls="controls" src={blobURL} type="audio/mp3" />
       </div>
     )
