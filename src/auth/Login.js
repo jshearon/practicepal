@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom";
 import { TextField, Button, Typography, Grid, IconButton } from '@material-ui/core'
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -75,6 +75,7 @@ export const Login = (props) => {
         spacing={0}
         justify="center"
         alignItems="center"
+        elevations={8}
         >
             <Grid item xs={12} align="right">
                 <IconButton aria-label="delete" className={classes.margin} size="small" onClick={() => props.handleLoginClick()}>

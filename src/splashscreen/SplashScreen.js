@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 import { Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import { Login } from '../auth/Login'
-import { Register } from '../auth/Register'
+import { Login } from '../Auth/Login'
+import { Register } from '../Auth/Register'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,15 +43,15 @@ export const SplashScreen = (props) => {
           container 
           className={classes.root} 
           spacing={0}
-          justify="space-around"
+          justify="center"
           alignItems="center"
           direction="column"
         >
 
-          <Grid item xs={12} align="center">
+          <Grid item xs={12} align="center" >
             <Typography variant="h1">Practice Pal</Typography>
           </Grid>
-          <Grid item xs={12} align="center">
+          <Grid item xs={12} align="center" >
             <Typography variant="h5">Please <Link onClick={handleLoginClick}>Login</Link> or <Link onClick={handleRegisterClick}>Register</Link></Typography>
             <Dialog open={openLogin} onClose={openLogin}>
               <Login handleLoginClick={handleLoginClick} />
@@ -60,7 +60,7 @@ export const SplashScreen = (props) => {
               <Register handleRegisterClick={handleRegisterClick}/>
             </Dialog>
           </Grid>
-          <Grid item xs={12} align="center">
+          <Grid item xs={12} align="center" >
             <Typography variant="body1"><em>"Quote goes here"</em></Typography>
           </Grid>
       </Grid>
