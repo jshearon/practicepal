@@ -2,7 +2,6 @@ import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,17 +10,26 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Grid, Avatar, Typography } from '@material-ui/core'
-import { AuthContext } from '../auth/AuthProvider'
+import { Avatar, Typography, AppBar, Toolbar, IconButton } from '@material-ui/core'
+import { AuthContext } from '../Auth/AuthProvider'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
   list: {
     width: 250,
   },
   fullList: {
     width: 'auto',
   },
-});
+}))
 
 export const NavBar = (props) => {
 
@@ -49,17 +57,19 @@ export const NavBar = (props) => {
             {
                 profile && profile.user &&
 
-                <Grid container spacing={0} justify="space-around" alignItems="center">
-                    <Grid item xs={6} spacing={3}>
-                        <Button onClick={toggleDrawer}><MenuIcon /></Button>
-                    </Grid>
-                    <Grid item xs={3} align="right" p={3}>
-                        <Typography>{profile.user.first_name + ' ' + profile.user.last_name}</Typography>
-                    </Grid>
-                    <Grid item xs={3} align="right" p={3}>
-                    <Avatar id="target" src={profile.profile_image} alt={profile.user.username} className={classes.large} />
-                    </Grid>
-                </Grid>
+                <div className={classes.root}>
+                  <AppBar position="static" elevation={4} color="default">
+                    <Toolbar>
+                      <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer}>
+                        <MenuIcon />
+                      </IconButton>
+                      <Typography variant="h6" className={classes.title}>
+                        Pocket Pal
+                      </Typography>
+                      <Avatar id="target" src={profile.profile_image} alt={profile.user.username} className={classes.large} />
+                    </Toolbar>
+                  </AppBar>
+                </div>
             }
           <Drawer open={menuOpen} onClose={toggleDrawer}>
             <List>

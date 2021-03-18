@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 import { Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import { Login } from '../auth/Login'
-import { Register } from '../auth/Register'
+import { Login } from '../Auth/Login'
+import { Register } from '../Auth/Register'
 
 const useStyles = makeStyles((theme) => ({
   root: {

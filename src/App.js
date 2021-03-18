@@ -1,25 +1,46 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
-import { NavBar } from "./nav/NavBar"
+import { NavBar } from "./Nav/NavBar"
 import { AppViews } from "./AppViews"
-import { SplashScreen } from "./splashscreen/SplashScreen"
-import { AuthProvider } from "./auth/AuthProvider"
+import { SplashScreen } from "./Splashscreen/SplashScreen"
+import { AuthProvider } from "./Auth/AuthProvider"
+import { makeStyles, useMediaQuery } from "@material-ui/core"
+import { useTheme } from "@material-ui/core/styles"
 
-export const App = () => (
-    <>
-        <Route render={() => {
-            if (localStorage.getItem("pp_token")) {
-                return <>
-                    <AuthProvider>
-                        <Route render={props => <NavBar {...props} />} />
-                        <Route render={props => <AppViews {...props} />} />
-                    </AuthProvider>
-                </>
-            } else {
-                return (<Redirect to="/splash" />)
-            }
-        }} />
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100vw',
+      height: '100vh',
+      [theme.breakpoints.down('xs')]: {
+        paddingTop: theme.spacing(2),
+      },  
+      backgroundColor: theme.palette.background.paper
+    },
+}))
 
-        <Route path="/splash" render={props => <SplashScreen {...props}/>} />
-    </>
-)
+export const App = () => {
+    const classes = useStyles()
+    const theme = useTheme()
+    const matches = useMediaQuery(theme.breakpoints.down('xs'))
+    return (
+        <>
+                <Route render={() => {
+                    if (localStorage.getItem("pp_token")) {
+                        return <>
+                            <AuthProvider>
+                                <Route render={props => <NavBar {...props} />} />
+                                <Route render={props => <AppViews {...props} />} />
+                            </AuthProvider>
+                        </>
+                    } else {
+                        return (<Redirect to="/splash" />)
+                    }
+                }} />
+
+                <Route 
+                    path="/splash" 
+                    render={props => <SplashScreen {...props} />} 
+                />
+        </>
+    )
+}

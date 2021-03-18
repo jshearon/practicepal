@@ -4,7 +4,7 @@ export const SectionContext = createContext()
 
 export const SectionProvider = (props) => {
     
-    const [userSections, setUserSections] = useState({})
+    const [userSections, setUserSections] = useState([])
 
     const getUserSections = () => {
         return fetch(`http://localhost:8000/sections?user=true`, {
