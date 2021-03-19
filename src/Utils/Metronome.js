@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import './metronome.scss'
+
 
 export const Metronome = (props) => {
+
+  let counter = useRef(1)
+
+
 
   let audioContext = null;
   let notesInQueue = [];        
@@ -11,6 +17,8 @@ export const Metronome = (props) => {
 
   const [isRunning, setIsRunning] = useState(false)
   const [intervalID, setIntervalID] = useState(0)
+  const [progress, setProgress] = useState(0);
+  const [drawID, setDrawID] = useState(0)
 
   const nextNote = () => {
         const secondsPerBeat = 60.0 / props.tempo
@@ -21,6 +29,10 @@ export const Metronome = (props) => {
             currentQuarterNote = 0
         }
     }
+
+    useEffect(() => {
+      //window.requestAnimationFrame(draw)
+    }, [])
 
   const scheduleNote = (beatNumber, time) => {
         notesInQueue.push({ note: beatNumber, time: time })
@@ -41,7 +53,14 @@ export const Metronome = (props) => {
           scheduleNote(currentQuarterNote, nextNoteTime)
           nextNote()
       }
-  }
+  } 
+
+  const beatlength = 60 / props.tempo
+  const beatcount = 4
+
+  const drawProgress = () => {
+      setProgress((prevProgress) => (prevProgress >= beatcount ? 1 : prevProgress + 1)); 
+    }
 
   const start = () => {
     if (isRunning) return;
@@ -58,11 +77,15 @@ export const Metronome = (props) => {
 
     const identifier = setInterval(() => scheduler(), lookahead);
     setIntervalID(identifier)
+    setProgress(1)
+    const drawcircle = setInterval(drawProgress, beatlength * 1000)
+    setDrawID(drawcircle)
   }
 
   const stop = () => {
         setIsRunning(false)
         clearInterval(intervalID)
+        clearInterval(drawID)
   }
 
   const startStop = () => {
@@ -77,10 +100,17 @@ export const Metronome = (props) => {
   useEffect(() => {
     startStop()
   }, [props.trigger])
+
+  useEffect(() =>{
+
+  }, [])
   
   return (
-    <div>
-      Metronome
+    <div class="container d-flex w-50">
+        <div class={progress === 1 ? 'led-blue' : 'led-red'}></div>
+        <div class={progress === 2 ? 'led-blue' : 'led-red'}></div>
+        <div class={progress === 3 ? 'led-blue' : 'led-red'}></div>
+        <div class={progress === 4 ? 'led-blue' : 'led-red'}></div>
     </div>
 
   )

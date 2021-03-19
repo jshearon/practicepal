@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { SectionContext } from '../Sections/SectionProvider'
 import { Metronome } from '../Utils/Metronome'
-import Recorder from '../Utils/Recorder'
 import { MiniRecorder } from '../Utils/MiniRecorder'
 
 export const SectionDetail = (props) => {
@@ -21,7 +20,7 @@ export const SectionDetail = (props) => {
             <h1>{singleSection.song.title}</h1>
         }
         <MiniRecorder trigger={trigger} />
-        <Metronome tempo="150" trigger={trigger} />
+        <Metronome tempo="120" trigger={trigger} beatcount="4" />
         <button onClick={() => {
           trigger === 0 ? setTrigger(1) : trigger === 1 ? setTrigger(2) : setTrigger(1)
           }
