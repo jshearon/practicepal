@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
  
 import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
  
@@ -8,7 +8,7 @@ class Recorder extends Component {
  
     this.state = {
       recordState: null,
-      blobURL: null
+      blobURL: null,
     }
   }
  
@@ -32,6 +32,19 @@ class Recorder extends Component {
     })
   }
 
+  componentDidMount() {
+    navigator.getUserMedia({ audio: true },
+      () => {
+        console.log('Permission Granted');
+        this.setState({ isBlocked: false });
+      },
+      () => {
+        console.log('Permission Denied');
+        this.setState({ isBlocked: true })
+      },
+    );
+  }
+
   componentDidUpdate(prevProps, prevState) {
     let doNothing = null
     if (prevProps.trigger !== this.props.trigger) {
@@ -53,6 +66,7 @@ class Recorder extends Component {
           foregroundColor='rgb(200,200,200)'
           canvasWidth='200'
           canvasHeight='100' />
+
  
         <audio controls="controls" src={blobURL} type="audio/mp3" />
       </div>
