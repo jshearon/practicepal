@@ -108,8 +108,10 @@ export const Dashboard = (props) => {
                               <Page pageNumber={1} height={150} />
                             </Document>
                         </Grid>
-                        <Grid item xs align="center">
-                          <CircularProgressWithLabel value={section.percent_complete} size={150} />
+                        <Grid item xs align="center" className="d-flex flex-column justify-content-center">
+                          <div>
+                          <CircularProgressWithLabel value={section.percent_complete} size={75} />
+                          </div>
                       </Grid>
                       <Grid 
                         item 

@@ -25,20 +25,16 @@ export const Metronome = (props) => {
         nextNoteTime += secondsPerBeat
     
         currentQuarterNote++
-        if (currentQuarterNote === 4) {
+        if (currentQuarterNote === props.beatcount) {
             currentQuarterNote = 0
         }
     }
-
-    useEffect(() => {
-      //window.requestAnimationFrame(draw)
-    }, [])
 
   const scheduleNote = (beatNumber, time) => {
         notesInQueue.push({ note: beatNumber, time: time })
         const osc = audioContext.createOscillator()
         const envelope = audioContext.createGain()
-        osc.frequency.value = (beatNumber % 4 === 0) ? 1000 : 800
+        osc.frequency.value = (beatNumber % props.beatcount === 0) ? 1000 : 800
         envelope.gain.value = 1
         envelope.gain.exponentialRampToValueAtTime(1, time + 0.001)
         envelope.gain.exponentialRampToValueAtTime(0.001, time + 0.02)
@@ -56,10 +52,9 @@ export const Metronome = (props) => {
   } 
 
   const beatlength = 60 / props.tempo
-  const beatcount = 4
-
+  
   const drawProgress = () => {
-      setProgress((prevProgress) => (prevProgress >= beatcount ? 1 : prevProgress + 1)); 
+      setProgress((prevProgress) => (prevProgress >= props.beatcount ? 1 : prevProgress + 1)); 
     }
 
   const start = () => {
@@ -101,16 +96,23 @@ export const Metronome = (props) => {
     startStop()
   }, [props.trigger])
 
-  useEffect(() =>{
-
-  }, [])
   
   return (
-    <div class="container d-flex w-50">
+    <div className={props.trigger === 1 ? 'container d-flex w-50 visible' : 'container d-flex w-50 invisible'}>
+        <>
         <div class={progress === 1 ? 'led-blue' : 'led-red'}></div>
         <div class={progress === 2 ? 'led-blue' : 'led-red'}></div>
-        <div class={progress === 3 ? 'led-blue' : 'led-red'}></div>
-        <div class={progress === 4 ? 'led-blue' : 'led-red'}></div>
+        { props.beatcount > 2 && <div class={progress === 3 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 3 && <div class={progress === 4 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 4 && <div class={progress === 5 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 5 && <div class={progress === 6 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 6 && <div class={progress === 7 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 7 && <div class={progress === 8 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 8 && <div class={progress === 9 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 9 && <div class={progress === 10 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 10 && <div class={progress === 11 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 11 && <div class={progress === 12 ? 'led-blue' : 'led-red'}></div> }
+        </>
     </div>
 
   )
