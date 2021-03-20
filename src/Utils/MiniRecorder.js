@@ -10,8 +10,8 @@ export const MiniRecorder = (props) => {
   }, [props.trigger])
 
   return (
-    <div className="MiniRecorder">
-      <audio src={audioURL} controls />
+    <div className={props.trigger === 2 ? 'MiniRecorder visible' : 'MiniRecorder invisible'}>
+        <audio src={audioURL} controls />
     </div>
   );
 }

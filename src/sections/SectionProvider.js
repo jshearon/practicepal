@@ -27,8 +27,21 @@ export const SectionProvider = (props) => {
             .then(setSingleSection)
     }
 
+    const logAttempt = (attempt) => {
+        console.log(attempt)
+        return fetch(`http://localhost:8000/attempts`, {
+        method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("pp_token")}`
+            },
+            body: JSON.stringify(attempt)
+        })
+            // .then(res => res.json())
+    }
+
     return (
-        <SectionContext.Provider value={{ userSections, getUserSections, singleSection, getSingleSection }}>
+        <SectionContext.Provider value={{ userSections, getUserSections, singleSection, getSingleSection, logAttempt }}>
             {props.children}
         </SectionContext.Provider>
     )
