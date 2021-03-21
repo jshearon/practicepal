@@ -1,8 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { SectionContext } from '../Sections/SectionProvider'
-import { Metronome } from '../Utils/Metronome'
-import { MiniRecorder } from '../Utils/MiniRecorder'
+import { SongContext } from '../Songs/SongProvider'
 import { Document, Page, pdfjs } from 'react-pdf';
 import useWindowDimensions from '../Utils/useWindowDim'
 import { Grid, Button, IconButton, Paper } from '@material-ui/core'
@@ -39,14 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SectionDetail = (props) => {
+export const SongDetail = (props) => {
 
     const classes = useStyles();
-    const sectionId = props.match.params.sectionId
+    const songId = props.match.params.songId
     const { height, width } = useWindowDimensions();
 
 
-    const { singleSection, getSingleSection, logAttempt } = useContext(SectionContext)
+    const { singleSong, getSingleSong } = useContext(SongContext)
     const [trigger, setTrigger] = useState(0)
     const [windowWidth, setWindowWidth ] = useState(0)
 
@@ -58,33 +56,27 @@ export const SectionDetail = (props) => {
     }
 
     useEffect(() => {
-      setWindowWidth(window.innerWidth * .90)
-      getSingleSection(sectionId)
+      setWindowWidth(window.innerWidth)
+      getSingleSong(songId)
     }, [])
 
     const handleRate = (e) => {
-      logAttempt({
-        section: parseInt(sectionId),
-        bpm: singleSection.current_tempo,
-        success: e.currentTarget.value === "true" ? true : false
-      })
-        .then(() => getSingleSection(sectionId))
-        .then(() => setTrigger(0))
+      
     }
 
 
     return (
       <div>
         {
-          singleSection && singleSection.song &&
+          singleSong &&
           <>
           <div className="d-flex justify-content-between align-items-center m-5 flex-wrap">
-            <h1>{singleSection.song.title}</h1>
-            <h2>{singleSection.label}</h2>
+            <h1>{singleSong.title}</h1>
+            <h2>{singleSong.composer}</h2>
           </div>
           <div className='d-flex justify-content-center'>
-            <Document file={singleSection.song.pdf} onLoadSuccess={onDocumentLoadSuccess}>
-                <Page pageNumber={pageNumber} width={width * .90} />
+            <Document file={singleSong.pdf} onLoadSuccess={onDocumentLoadSuccess}>
+                <Page pageNumber={pageNumber} width={width * .50} />
   
             </Document>
           </div>
@@ -99,9 +91,6 @@ export const SectionDetail = (props) => {
           </Grid>
           <Grid item xs className='d-flex flex-column justify-content-around align-items-center'>
             <h6>Page {pageNumber} of {numPages}</h6>
-            <h4>Current Tempo: {singleSection.current_tempo}</h4>
-            <div style={{ minWidth: '250px' }}><Metronome tempo={singleSection.current_tempo} trigger={trigger} beatcount={singleSection.beats} /></div>
-            <div><MiniRecorder trigger={trigger} /></div>
             <div className='d-flex justify-content-between w-100'>
               <Button 
                 variant='contained' 

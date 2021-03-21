@@ -85,7 +85,7 @@ export const NavBar = (props) => {
                     <ListItemText>Home</ListItemText>
                 </ListItem>
                 <ListItem button onClick={() => {
-                  history.push('/')
+                  history.push('/songlist')
                   setMenuOpen(false)
                 }}>
                     <ListItemIcon><LibraryMusicIcon /></ListItemIcon>

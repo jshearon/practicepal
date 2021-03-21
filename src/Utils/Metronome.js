@@ -100,18 +100,18 @@ export const Metronome = (props) => {
   return (
     <div className={props.trigger === 1 ? 'container d-flex w-50 visible' : 'container d-flex w-50 invisible'}>
         <>
-        <div class={progress === 1 ? 'led-blue' : 'led-red'}></div>
-        <div class={progress === 2 ? 'led-blue' : 'led-red'}></div>
-        { props.beatcount > 2 && <div class={progress === 3 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 3 && <div class={progress === 4 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 4 && <div class={progress === 5 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 5 && <div class={progress === 6 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 6 && <div class={progress === 7 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 7 && <div class={progress === 8 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 8 && <div class={progress === 9 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 9 && <div class={progress === 10 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 10 && <div class={progress === 11 ? 'led-blue' : 'led-red'}></div> }
-        { props.beatcount > 11 && <div class={progress === 12 ? 'led-blue' : 'led-red'}></div> }
+        <div className={progress === 1 ? 'led-blue' : 'led-red'}></div>
+        <div className={progress === 2 ? 'led-blue' : 'led-red'}></div>
+        { props.beatcount > 2 && <div className={progress === 3 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 3 && <div className={progress === 4 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 4 && <div className={progress === 5 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 5 && <div className={progress === 6 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 6 && <div className={progress === 7 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 7 && <div className={progress === 8 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 8 && <div className={progress === 9 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 9 && <div className={progress === 10 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 10 && <div className={progress === 11 ? 'led-blue' : 'led-red'}></div> }
+        { props.beatcount > 11 && <div className={progress === 12 ? 'led-blue' : 'led-red'}></div> }
         </>
     </div>
 

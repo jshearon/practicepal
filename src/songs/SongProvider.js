@@ -6,6 +6,7 @@ export const SongProvider = (props) => {
     
     const [userSongs, setUserSongs] = useState([])
     const [singleSong, setSingleSong] = useState({})
+    const [instruments, setInstruments] = useState([])
 
     const getUserSongs = () => {
         return fetch(`http://localhost:8000/songs?user=true`, {
@@ -27,8 +28,18 @@ export const SongProvider = (props) => {
             .then(setSingleSong)
     }
 
+    const getInstruments = () => {
+      return fetch(`http://localhost:8000/instruments`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("pp_token")}`
+        }
+    })
+        .then(response => response.json())
+        .then(setInstruments)
+    }
+
     return (
-        <SongContext.Provider value={{ userSongs, getUserSongs, singleSong, getSingleSong }}>
+        <SongContext.Provider value={{ userSongs, getUserSongs, singleSong, getSingleSong, setSingleSong, instruments, getInstruments }}>
             {props.children}
         </SongContext.Provider>
     )
