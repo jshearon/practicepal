@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import { Login } from '../Auth/Login'
 import { Register } from '../Auth/Register'
+import MetronomeAnimation from '../Animation/Lottie'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,7 +62,7 @@ export const SplashScreen = (props) => {
             </Dialog>
           </Grid>
           <Grid item xs={12} align="center" >
-            <Typography variant="body1"><em>"Quote goes here"</em></Typography>
+            <MetronomeAnimation width={500} />
           </Grid>
       </Grid>
   )
