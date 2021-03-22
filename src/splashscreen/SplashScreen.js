@@ -62,7 +62,7 @@ export const SplashScreen = (props) => {
             </Dialog>
           </Grid>
           <Grid item xs={12} align="center" >
-            <MetronomeAnimation width={500} />
+            <MetronomeAnimation />
           </Grid>
       </Grid>
   )
