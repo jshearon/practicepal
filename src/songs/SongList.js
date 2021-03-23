@@ -96,7 +96,7 @@ export const SongList = (props) => {
           {
            userSongs.map(song => {
                 return (
-                <Card key={song.id} raised style={{display: 'inline-block'}}>
+                <Card key={song.id} raised className={classes.root}>
                   <CardContent>
                         <Typography variant="h4">
                           {song.title}

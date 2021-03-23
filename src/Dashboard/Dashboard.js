@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Typography, Grid, CircularProgress, Card, CardContent, CardHeader, Button, Box, Paper } from '@material-ui/core'
+import { Typography, Grid, CircularProgress, Card, CardContent, Button, Box, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { SectionContext } from '../Sections/SectionProvider'
 import { Document, Page, pdfjs } from 'react-pdf';

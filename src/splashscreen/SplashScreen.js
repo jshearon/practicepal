@@ -50,7 +50,7 @@ export const SplashScreen = (props) => {
         >
 
           <Grid item xs={12} align="center" >
-            <Typography variant="h1">Practice Pal</Typography>
+            <Typography variant="h2">Practice Pal</Typography>
           </Grid>
           <Grid item xs={12} align="center" >
             <Typography variant="h5">Please <Link onClick={handleLoginClick}>Login</Link> or <Link onClick={handleRegisterClick}>Register</Link></Typography>
