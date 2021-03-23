@@ -50,7 +50,7 @@ export const SongForm = (props) => {
     setFormData({
       title: singleSong.title,
       composer: singleSong.composer,
-      instrument: singleSong.instrument && singleSong.instrument.id
+      instrument: singleSong.instrument && singleSong.instrument.id ? singleSong.instrument.id : 'init'
     })
     singleSong.pdf && fetch(singleSong.pdf, {
       method: "GET",

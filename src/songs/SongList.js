@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const SongList = (props) => {
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   const history = useHistory()
 
@@ -96,9 +96,9 @@ export const SongList = (props) => {
           {
            userSongs.map(song => {
                 return (
-                <Card key={song.id} raised style={{display: 'inline-block'}}>
+                <Card key={song.id} raised className={classes.root}>
                   <CardContent>
-                        <Typography variant="h5">
+                        <Typography variant="h4">
                           {song.title}
                         </Typography>
                         <Typography variant="overline">
