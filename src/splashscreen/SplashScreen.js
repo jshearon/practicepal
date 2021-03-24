@@ -53,6 +53,9 @@ export const SplashScreen = (props) => {
             <Typography variant="h2">Practice Pal</Typography>
           </Grid>
           <Grid item xs={12} align="center" >
+            <MetronomeAnimation />
+          </Grid>
+          <Grid item xs={12} align="center" >
             <Typography variant="h5">Please <Link onClick={handleLoginClick}>Login</Link> or <Link onClick={handleRegisterClick}>Register</Link></Typography>
             <Dialog open={openLogin} onClose={openLogin}>
               <Login handleLoginClick={handleLoginClick} />
@@ -60,9 +63,6 @@ export const SplashScreen = (props) => {
             <Dialog open={openRegister} onClose={openRegister}>
               <Register handleRegisterClick={handleRegisterClick}/>
             </Dialog>
-          </Grid>
-          <Grid item xs={12} align="center" >
-            <MetronomeAnimation />
           </Grid>
       </Grid>
   )

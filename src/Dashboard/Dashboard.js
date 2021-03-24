@@ -87,7 +87,7 @@ export const Dashboard = (props) => {
           {
               userSections.map(section => {
                 return (
-              <Grid item xs={11} sm={8}>
+              <Grid item xs={11} sm={8} key={section.id}>
                 <Card key={section.id} raised>
                   <CardContent>
                   <Paper elevation={3}>

@@ -78,13 +78,6 @@ export const NavBar = (props) => {
           <Drawer open={menuOpen} onClose={toggleDrawer}>
             <List>
                 <ListItem button onClick={() => {
-                  history.push('/')
-                  setMenuOpen(false)
-                }}>
-                    <ListItemIcon><HomeIcon /></ListItemIcon>
-                    <ListItemText>Home</ListItemText>
-                </ListItem>
-                <ListItem button onClick={() => {
                   history.push('/songlist')
                   setMenuOpen(false)
                 }}>
@@ -99,7 +92,7 @@ export const NavBar = (props) => {
                     <ListItemText>Sections</ListItemText>
                 </ListItem>
                 <ListItem button onClick={() => {
-                  history.push('/')
+                  history.push('/competitions')
                   setMenuOpen(false)
                 }}>
                     <ListItemIcon><SportsIcon /></ListItemIcon>

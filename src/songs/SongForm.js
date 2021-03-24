@@ -173,7 +173,7 @@ export const SongForm = (props) => {
               value={formData.instrument}
               >
                 <MenuItem value='init'><em>Choose an Instrument</em></MenuItem>
-                { instruments.map((instr) => <MenuItem value={instr.id}>{instr.label}</MenuItem>) }
+                { instruments.map((instr) => <MenuItem value={instr.id} key={'instr_' + instr.id}>{instr.label}</MenuItem>) }
             </Select>
           </Grid>
           <Grid item xs={12} align="center">

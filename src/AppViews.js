@@ -9,6 +9,7 @@ import { SectionProvider } from "./Sections/SectionProvider"
 import { SongProvider } from "./Songs/SongProvider"
 import { SectionDetail } from "./Sections/SectionDetail"
 import { SongDetail } from "./Songs/SongDetail"
+import { Competitions } from "./Competitions/Competitions"
 
 export const AppViews = (props) => {
   return <>
@@ -21,6 +22,7 @@ export const AppViews = (props) => {
         <Route exact path="/sectionform" render={props => <SectionForm {...props}/>} />
         <Route exact path="/section/:sectionId" render={props => <SectionDetail {...props}/>} />
         <Route exact path="/song/:songId" render={props => <SongDetail {...props}/>} />
+        <Route exact path="/competitions" render={props => <Competitions {...props}/>} />
       </SectionProvider>
     </SongProvider>
   </>
