@@ -93,10 +93,12 @@ export const SongList = (props) => {
                 </IconButton>
           </Grid>
           <Grid item xs={12} align="center">
+            <Grid container xs={12} justify="center" align="center" spacing={3}>
           {
            userSongs.map(song => {
                 return (
-                <Card key={song.id} raised className={classes.root}>
+                  <Grid item xs={4} key={song.id}>
+                <Card raised className={classes.root}>
                   <CardContent>
                         <Typography variant="h4">
                           {song.title}
@@ -118,9 +120,11 @@ export const SongList = (props) => {
                         </IconButton>
                   </CardContent>
                 </Card>
+                </Grid>
                 )
               })
           }
+          </Grid>
           </Grid>
       </Grid>
     </div>

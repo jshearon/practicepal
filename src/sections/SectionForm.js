@@ -147,7 +147,7 @@ export const SectionForm = (props) => {
             <TextField name="tries" label="No. Of Tries" onChange={handleChange} required fullWidth value={formData.tries} />
           </Grid>
           <Grid item  xs={12}>
-          <FormControl className={classes.formControl}>
+          <FormControl>
             <InputLabel id="demo-mutiple-name-label">Page No.</InputLabel>
               <Select
                 labelId="demo-mutiple-name-label"

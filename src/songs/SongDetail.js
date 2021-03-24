@@ -6,7 +6,7 @@ import { SectionContext } from '../Sections/SectionProvider'
 import { SectionForm } from '../Sections/SectionForm'
 import { Document, Page, pdfjs } from 'react-pdf';
 import useWindowDimensions from '../Utils/useWindowDim'
-import { Grid, IconButton, Paper, Typography, Card, Container, Box, Dialog } from '@material-ui/core'
+import { Grid, IconButton, Paper, Typography, Card, Container, Box, Dialog, Chip, Avatar } from '@material-ui/core'
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import PageviewIcon from '@material-ui/icons/Pageview';
@@ -88,7 +88,7 @@ export const SongDetail = (props) => {
           </div>
         </Grid>
         <Grid item xs={12} sm={6} align="center">
-            <Paper elevation={8} style={{width: width * .4}}>
+            <Paper elevation={8} style={{width: width > 1000 ? 400 : width * .4}}>
               <Grid container>
                 <Grid item xs={1} className='d-flex justify-content-center align-items-center'>
                   <IconButton onClick={() => pageNumber !== 1 && setPageNumber(pageNumber - 1)}><ArrowLeftIcon /></IconButton>
@@ -111,7 +111,7 @@ export const SongDetail = (props) => {
         </Grid>
         <Grid item xs={12} sm={6}>
             <Document file={singleSong.pdf} onLoadSuccess={onDocumentLoadSuccess}>
-                <Page pageNumber={pageNumber} width={width * .4} />
+                <Page pageNumber={pageNumber} width={width > 1000 ? 400 : width * .4} />
             </Document>
         </Grid>
         <Grid item xs align="center">
@@ -121,7 +121,22 @@ export const SongDetail = (props) => {
           {singleSong.song_sections && singleSong.song_sections.map((section) => 
           <Grid item xs key={section.id} style={{minWidth: '200px'}}>
             <Card raised className={classes.root}>
-              <Typography>{section.label}</Typography>
+              <Grid container className={classes.root} spacing={4}>
+                <Grid item xs={12}>
+                  <Typography>{section.label}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+              {
+                section.section_users.map((user) => <Chip 
+                label={`${user.user.first_name} ${user.user.last_name}`}
+                avatar={<Avatar alt={`${user.user.first_name} ${user.user.last_name}`} 
+                src={user.profile_image} key={user.id} />}
+                />)
+              }
+               </Grid>
+               <Grid item xs={12}>
+               </Grid>
+               <Grid item xs={12}>
                 <IconButton onClick={() => history.push(`/section/${section.id}`)}>
                   <PageviewIcon />
                 </IconButton>
@@ -131,6 +146,8 @@ export const SongDetail = (props) => {
                 <IconButton onClick={() => handleDeleteSectionClick(section.id)}>
                    <DeleteForeverIcon />
                 </IconButton>
+                </Grid>
+                </Grid>
             </Card> 
             </Grid>
           )}
