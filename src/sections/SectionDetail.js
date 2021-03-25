@@ -5,7 +5,7 @@ import { Metronome } from '../Utils/Metronome'
 import { MiniRecorder } from '../Utils/MiniRecorder'
 import { Document, Page, pdfjs } from 'react-pdf';
 import useWindowDimensions from '../Utils/useWindowDim'
-import { Grid, Button, IconButton, Paper } from '@material-ui/core'
+import { Grid, Button, IconButton, Paper, Avatar, Typography } from '@material-ui/core'
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import MicIcon from '@material-ui/icons/Mic';
@@ -79,8 +79,8 @@ export const SectionDetail = (props) => {
           singleSection && singleSection.song &&
           <>
           <div className="d-flex justify-content-between align-items-center m-5 flex-wrap">
-            <h1>{singleSection.song.title}</h1>
-            <h2>{singleSection.label}</h2>
+            <Typography variant='h4'>{singleSection.song.title}</Typography>
+            <Typography variant='h2'>{singleSection.label}</Typography>
           </div>
           <div className='d-flex justify-content-center'>
             <Document file={singleSection.song.pdf} onLoadSuccess={onDocumentLoadSuccess}>
@@ -99,7 +99,10 @@ export const SectionDetail = (props) => {
           </Grid>
           <Grid item xs className='d-flex flex-column justify-content-around align-items-center'>
             <h6>Page {pageNumber} of {numPages}</h6>
-            <h4>Current Tempo: {singleSection.current_tempo}</h4>
+            <Typography variant='h6'>Current Tempo:</Typography>
+              <Avatar style={{backgroundColor: 'orange'}}>
+                {singleSection.current_tempo}
+              </Avatar>
             <div style={{ minWidth: '250px' }}><Metronome tempo={singleSection.current_tempo} trigger={trigger} beatcount={singleSection.beats} /></div>
             <div><MiniRecorder trigger={trigger} /></div>
             <div className='d-flex justify-content-between w-100'>

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Typography, Grid, CircularProgress, Card, CardContent, CardHeader, Button, Box, Paper, Dialog } from '@material-ui/core'
+import { Container, Typography, Grid, CircularProgress, Card, CardContent, CardHeader, Button, Box, Paper, Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { SongContext } from '../Songs/SongProvider'
 import { SongForm } from './SongForm'
@@ -21,8 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
+    margin: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
   },
 }));
 
@@ -64,68 +65,85 @@ export const SongList = (props) => {
               })
   }
 
-  return ( 
+  return (
     <div className={classes.root}>
-        <Dialog open={openSongForm} onClose={openSongForm}>
-          <SongForm handleSongFormClick={handleSongFormClick} />
-       </Dialog>
-       <Grid 
-          container 
-          className={classes.root} 
-          spacing={3}
-          justify="center"
-        >
+      <Dialog open={openSongForm} onClose={openSongForm}>
+        <SongForm handleSongFormClick={handleSongFormClick} />
+      </Dialog>
+      <Grid
+        container
+        className={classes.root}
+        spacing={3}
+        justify="center"
+      >
 
 
-          <Grid item xs={12} align="center" className="m-3">
-            <Typography variant="h4">Works</Typography>
-          </Grid>
-          <Grid item xs={12} align="center">
-                <IconButton onClick={() => {
-                  setSingleSong({
-                    title: "",
-                    composer: "",
-                    instrument: "init",
-                    pdf: ""
-                  })
-                  setOpenSongForm(true)}}>
-                  <AddCircleIcon fontSize="large" />
-                </IconButton>
-          </Grid>
-          <Grid item xs={12} align="center">
-            <Grid container xs={12} justify="center" align="center" spacing={3}>
-          {
-           userSongs.map(song => {
+        <Grid item xs={12} align="center" className="m-3">
+          <Typography variant="h4">Works</Typography>
+        </Grid>
+        <Grid item xs={12} align="center">
+          <IconButton onClick={() => {
+            setSingleSong({
+              title: "",
+              composer: "",
+              instrument: "init",
+              pdf: ""
+            })
+            setOpenSongForm(true)
+          }}>
+            <AddCircleIcon fontSize="large" />
+          </IconButton>
+        </Grid>
+        <Grid item xs={12} align="center">
+          <Grid container justify='space-around'>
+            {
+              userSongs.map(song => {
                 return (
-                  <Grid item xs={4} key={song.id}>
-                <Card raised className={classes.root}>
-                  <CardContent>
-                        <Typography variant="h4">
-                          {song.title}
-                        </Typography>
-                        <Typography variant="overline">
-                          {song.composer}
-                        </Typography>
-                        <Document file={song.pdf} >
-                          <Page pageNumber={1} height={150} />
-                        </Document>
-                        <IconButton onClick={() => history.push(`/song/${song.id}`)}>
-                          <PageviewIcon />
-                        </IconButton>
-                        <IconButton onClick={() => handleEditSongFormClick(song.id)}>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton onClick={() => handleDeleteSongFormClick(song.id)}>
-                          <DeleteForeverIcon />
-                        </IconButton>
-                  </CardContent>
-                </Card>
-                </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <Paper variant='elevation' elevation={10} className={classes.paper}>
+                      <Grid container direction='column' spacing={3}>
+                        <Grid item xs align="left">
+                          <Typography variant="h4">
+                            {song.title}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs align="left">
+                          <Typography variant="overline">
+                            {song.composer}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs align="center">
+                          <Document file={song.pdf} >
+                            <Page pageNumber={1} height={150} />
+                          </Document>
+                        </Grid>
+                        <Grid item xs>
+                          <Grid container justify='space-around'>
+                            <Grid item>
+                              <IconButton onClick={() => history.push(`/song/${song.id}`)}>
+                                <PageviewIcon />
+                              </IconButton>
+                            </Grid>
+                            <Grid item>
+                              <IconButton onClick={() => handleEditSongFormClick(song.id)}>
+                                <EditIcon />
+                              </IconButton>
+                            </Grid>
+                            <Grid item>
+                              <IconButton onClick={() => handleDeleteSongFormClick(song.id)}>
+                                <DeleteForeverIcon />
+                              </IconButton>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Paper>
+                  </Grid>
                 )
               })
-          }
+            }
           </Grid>
-          </Grid>
+        </Grid>
       </Grid>
     </div>
   )

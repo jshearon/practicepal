@@ -62,7 +62,7 @@ export const NavBar = (props) => {
                 profile && profile.user &&
 
                 <div className={classes.root}>
-                  <AppBar position="static" elevation={4} color="default">
+                  <AppBar position="fixed" elevation={4} color="default">
                     <Toolbar>
                       <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer}>
                         <MenuIcon />
@@ -73,6 +73,7 @@ export const NavBar = (props) => {
                       <Avatar id="target" src={profile.profile_image} alt={profile.user.username} className={classes.large} />
                     </Toolbar>
                   </AppBar>
+                  <div style={{marginTop:'10vh'}}></div>
                 </div>
             }
           <Drawer open={menuOpen} onClose={toggleDrawer}>
