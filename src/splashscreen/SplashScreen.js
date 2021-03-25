@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
+    flexGrow: 1,
+    height: '100vh',
   },
   small: {
     width: theme.spacing(3),
@@ -44,18 +46,18 @@ export const SplashScreen = (props) => {
           container 
           className={classes.root} 
           spacing={0}
-          justify="center"
+          justify="space-around"
           alignItems="center"
           direction="column"
         >
 
-          <Grid item xs={12} align="center" >
+          <Grid item align="center" >
             <Typography variant="h2">Practice Pal</Typography>
           </Grid>
-          <Grid item xs={12} align="center" >
+          <Grid item align="center" >
             <MetronomeAnimation />
           </Grid>
-          <Grid item xs={12} align="center" >
+          <Grid item align="center" >
             <Typography variant="h5">Please <Link onClick={handleLoginClick}>Login</Link> or <Link onClick={handleRegisterClick}>Register</Link></Typography>
             <Dialog open={openLogin} onClose={openLogin}>
               <Login handleLoginClick={handleLoginClick} />

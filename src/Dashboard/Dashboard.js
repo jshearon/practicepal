@@ -43,12 +43,25 @@ CircularProgressWithLabel.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    position: 'relative',
+  },
+  bottom: {
+    color: "blue",
+    position: "absolute",
+    left: 0
+  },
+  top: {
+    color: "red",
+    position: "absolute",
+    left: 0
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+  },
+  circle: {
+    strokeLinecap: 'round',
   },
 }));
 
@@ -88,9 +101,9 @@ export const Dashboard = (props) => {
               userSections.map(section => {
                 return (
               <Grid item xs={11} sm={8} key={section.id}>
-                <Card key={section.id} raised>
+                <Card key={section.id}>
                   <CardContent>
-                  <Paper elevation={3}>
+                  <Paper>
                     <Grid container spacing={0} justify="center">
                       <Grid item xs={6} align="left" className="d-flex flex-column justify-content-center">
                         <Typography variant="h5">
@@ -102,29 +115,47 @@ export const Dashboard = (props) => {
                       </Grid>
                     </Grid>
                   </Paper>
-                    <Grid container spacing={0} justify="flex-start" alignContent="flex-start"> 
-                        <Grid item xs={1} align="center" style = {{minWidth: "120px"}}>
-                            <Document file={section.song.pdf} >
+
+                    <Grid container spacing={0} justify="space-between"> 
+                          <Grid item xs={12} sm={1} align="center" style={{ minWidth: "120px" }} className='d-flex flex-column justify-content-center'>
+                            <Box m={3}>
+                            <Document file={section.song.pdf} style={{ height: '100%' }}>
                               <Page pageNumber={1} height={150} />
                             </Document>
+                            </Box>
                         </Grid>
-                        <Grid item xs align="center" className="d-flex flex-column justify-content-center">
-                          <div>
-                          <CircularProgressWithLabel value={section.percent_complete} size={75} />
+                        <Grid item xs={12} sm align="center" className="d-flex flex-column justify-content-center">
+                        <Box m={3}>
+                          <div className={classes.root}>
+                          <CircularProgressWithLabel 
+                            variant="determinate"
+                            value={section.percent_complete} 
+                            size={100} 
+                            color='secondary' 
+                            {...props}
+                            thickness={5} 
+                            classes={{
+                              circle: classes.circle,
+                            }}
+                            />
                           </div>
+                          </Box>
                       </Grid>
                       <Grid 
                         item 
-                        xs={1} 
+                        xs={12} 
+                        sm={1}
                         style = {{minWidth: "120px"}} 
                         align="center"
                         className="d-flex flex-column justify-content-center"
-                      >
+                        >
+                          <Box m={3}>
                             <Button 
                               size="small" 
                               color="primary" 
                               variant="contained"
                               onClick={() => history.push(`/section/${section.id}`)}>Practice</Button>
+                          </Box>
                       </Grid>
                     </Grid> 
                   </CardContent>
